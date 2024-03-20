@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./database');
 const middleware = require('./middleware');
+const jwt = require('jsonwebtoken');
 
 router.post('/login', (req, res) => {
   // For simplicity, let's assume a hardcoded username and password
@@ -40,3 +41,4 @@ router.delete('/books/:id', (req, res) => {
 });
 
 module.exports = router;
+
