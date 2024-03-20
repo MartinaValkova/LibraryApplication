@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Book Library API');
 });
 
-// Mock user database (replace this with your actual user database)
+
 const users = [
   { id: 1, username: 'librarian', password: 'librarianpassword', role: 'librarian' },
   { id: 2, username: 'reader', password: 'readerpassword', role: 'reader' }
