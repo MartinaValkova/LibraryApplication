@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('./database');
+const { authenticateAndAuthorize } = require('./middleware');
 
-// GET all books
+// GET all books (Public route)
 router.get('/books', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM books');
@@ -13,8 +14,8 @@ router.get('/books', async (req, res) => {
   }
 });
 
-// POST a new book
-router.post('/books', async (req, res) => {
+// POST a new book (Librarian route)
+router.post('/books', authenticateAndAuthorize('librarian'), async (req, res) => {
   const { title, author, genre } = req.body;
   try {
     const { rows } = await pool.query('INSERT INTO books (title, author, genre) VALUES ($1, $2, $3) RETURNING *', [title, author, genre]);
@@ -25,8 +26,8 @@ router.post('/books', async (req, res) => {
   }
 });
 
-// PATCH (update) an existing book
-router.patch('/books/:id', async (req, res) => {
+// PATCH (update) an existing book (Librarian route)
+router.patch('/books/:id', authenticateAndAuthorize('librarian'), async (req, res) => {
   const id = req.params.id;
   const { title, author, genre } = req.body;
   try {
@@ -41,8 +42,8 @@ router.patch('/books/:id', async (req, res) => {
   }
 });
 
-// DELETE a book
-router.delete('/books/:id', async (req, res) => {
+// DELETE a book (Librarian route)
+router.delete('/books/:id', authenticateAndAuthorize('librarian'), async (req, res) => {
   const id = req.params.id;
   try {
     const { rows } = await pool.query('DELETE FROM books WHERE id = $1 RETURNING *', [id]);
