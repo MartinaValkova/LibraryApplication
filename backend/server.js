@@ -1,47 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-// Handle requests to the root URL
-app.get('/', (req, res) => {
-  res.send('Welcome to the Book Library API');
+// Serve static files from the 'frontend' directory
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Backend routes
+app.use('/api', require('./routes'));
+
+// Serve the frontend index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
 });
 
-
-const users = [
-  { id: 1, username: 'librarian', password: 'librarianpassword', role: 'librarian' },
-  { id: 2, username: 'reader', password: 'readerpassword', role: 'reader' }
-];
-
-// Login endpoint
-app.post('/login', (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    // Find user by username and password
-    const user = users.find(u => u.username === username && u.password === password);
-
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    // Generate JWT token with user role
-    const token = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET);
-    res.json({ token, role: user.role });
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-// Start server
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

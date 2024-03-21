@@ -1,13 +1,13 @@
-// database.js
 const { Pool } = require('pg');
-require('dotenv').config();
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT
+  user: 'your_username',
+  host: 'localhost',
+  database: 'book_library_db',
+  password: 'your_password',
+  port: 5432, // Default PostgreSQL port
 });
 
 module.exports = pool;
+
+

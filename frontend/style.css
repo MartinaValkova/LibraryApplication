@@ -1,0 +1,70 @@
+/* Basic styles for the frontend */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  main {
+    padding: 1rem;
+  }
+  
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  #loginForm {
+    max-width: 300px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  #loginForm label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  #loginForm input[type="text"],
+  #loginForm input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  #loginForm button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  #loginForm button:hover {
+    background-color: #0056b3;
+  }
+  
+  #bookList {
+    display: none;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  

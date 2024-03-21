@@ -1,27 +1,27 @@
 const jwt = require('jsonwebtoken');
+const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 
-// Authentication middleware
-function authenticateToken(req, res, next) {
-  // Extract the JWT token from the Authorization header
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  
+function authenticateLibrarian(req, res, next) {
+  const token = req.headers.authorization;
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized: Token missing' });
+    return res.status(401).json({ message: 'No token provided' });
   }
 
-  // Verify the token
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: 'Forbidden: Invalid token' });
+      return res.status(401).json({ message: 'Failed to authenticate token' });
     }
-    
-    // If the token is valid, save the decoded payload to the request object
+
+    if (decoded.role !== 'librarian') {
+      return res.status(403).json({ message: 'Unauthorized' });
+    }
+
     req.user = decoded;
     next();
   });
 }
 
-module.exports = {
-  authenticateToken
-};
+module.exports = { authenticateLibrarian };
+
+
+

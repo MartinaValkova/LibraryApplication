@@ -1,44 +1,66 @@
-// routes.js
 const express = require('express');
 const router = express.Router();
 const pool = require('./database');
-const middleware = require('./middleware');
-const jwt = require('jsonwebtoken');
 
-router.post('/login', (req, res) => {
-  // For simplicity, let's assume a hardcoded username and password
-  const { username, password } = req.body;
-  if (username === 'admin' && password === 'adminpassword') {
-    const token = jwt.sign({ username }, process.env.JWT_SECRET);
-    res.json({ token });
-  } else {
-    res.status(401).json({ message: 'Invalid credentials' });
+// GET all books
+router.get('/books', async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT * FROM books');
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching books:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// Add middleware to protect routes
-router.use(middleware.authenticateToken);
+// POST a new book
+router.post('/books', async (req, res) => {
+  const { title, author, genre } = req.body;
+  try {
+    const { rows } = await pool.query('INSERT INTO books (title, author, genre) VALUES ($1, $2, $3) RETURNING *', [title, author, genre]);
+    res.status(201).json(rows[0]);
+  } catch (error) {
+    console.error('Error adding book:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
-router.get('/books', (req, res) => {
-  pool.query('SELECT * FROM Books_Table', (error, results) => {
-    if (error) {
-      throw error;
+// PATCH (update) an existing book
+router.patch('/books/:id', async (req, res) => {
+  const id = req.params.id;
+  const { title, author, genre } = req.body;
+  try {
+    const { rows } = await pool.query('UPDATE books SET title = $1, author = $2, genre = $3 WHERE id = $4 RETURNING *', [title, author, genre, id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Book not found' });
     }
-    res.json(results.rows);
-  });
+    res.json(rows[0]);
+  } catch (error) {
+    console.error('Error updating book:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
-router.post('/books', (req, res) => {
-  // Add a new book
-});
-
-router.patch('/books/:id', (req, res) => {
-  // Update an existing book
-});
-
-router.delete('/books/:id', (req, res) => {
-  // Delete a book
+// DELETE a book
+router.delete('/books/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const { rows } = await pool.query('DELETE FROM books WHERE id = $1 RETURNING *', [id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Book not found' });
+    }
+    res.json({ message: 'Book deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting book:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 module.exports = router;
+
+
+
+
+
+
 
