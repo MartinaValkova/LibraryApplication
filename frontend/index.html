@@ -7,26 +7,20 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Library Catalog</h1>
-  </header>
-  <main>
-    <div id="loginForm">
-      <h2>Login</h2>
-      <form id="loginForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">Login</button>
-      </form>
-      <p id="loginMessage"></p>
-    </div>
-    <div id="bookList" style="display:none;">
-      <h2>Books</h2>
-      <ul id="books"></ul>
-    </div>
-  </main>
+  <h1>Library Catalog</h1>
+  
+  <div id="booksList">
+    <!-- Books will be displayed here -->
+  </div>
+
+  <div id="loginForm">
+    <h2>Librarian Login</h2>
+    <input type="text" id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
+
