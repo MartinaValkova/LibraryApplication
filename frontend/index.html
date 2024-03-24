@@ -1,3 +1,5 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,23 +10,29 @@
 </head>
 <body>
   <h1>Library Catalog</h1>
-
+  
   <div id="booksList">
     <!-- Books will be displayed here -->
   </div>
 
   <div id="loginForm">
     <h2>Librarian Login</h2>
-    <input type="text" id="username" placeholder="Username"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+    <input type="text" id="username" placeholder="Username" autocomplete="username"><br>
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password"><br>
     <button onclick="login()">Login</button>
+  </div>
+
+  <div id="librarianActions" style="display: none;">
+    <h2>Librarian Actions</h2>
+    <button onclick="addBook()">Add Book</button>
+    <button onclick="updateBook()">Update Book</button>
+    <button onclick="deleteBook()">Delete Book</button>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
 
-  
 
 
 
