@@ -18,7 +18,7 @@ function fetchBooks() {
             booksList.innerHTML = ''; // Clear previous content
             books.forEach(book => {
                 const bookElement = document.createElement('div');
-                bookElement.textContent = `Title: ${book.title}, Author: ${book.author}, Genre: ${book.genre}`;
+                bookElement.textContent = `ID: ${book.book_id}, Title: ${book.title}, Author: ${book.author}, Genre: ${book.genre}`;
                 booksList.appendChild(bookElement);
             });
         })
@@ -27,6 +27,9 @@ function fetchBooks() {
             alert('Failed to fetch books. Please try again later.');
         });
 }
+
+
+
 
 function login() {
     const username = document.getElementById('username').value;
@@ -85,11 +88,42 @@ function checkLoginStatus() {
     }
 }
 
+function logout() {
+    // Clear token from local storage
+    localStorage.removeItem('token');
+    // Hide librarian actions
+    document.getElementById('librarianActions').style.display = 'none';
+    // Show login form
+    document.getElementById('loginForm').style.display = 'block';
+}
+
+
+async function getGenreId(genreName) {
+    try {
+        const response = await fetch(`/api/genres?name=${genreName}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch genre ID');
+        }
+        const data = await response.json();
+        return data.id; // Assuming the response contains the genre ID
+    } catch (error) {
+        console.error('Error fetching genre ID:', error.message);
+        throw error;
+    }
+}
+
+
+// Function to add a new book
 function addBook() {
-    // Get input values
     const title = prompt('Enter title:');
-    const author = prompt('Enter author:');
-    const genre = prompt('Enter genre:');
+    const author_name = prompt('Enter author name:');
+    const genre_id = parseInt(prompt(`Choose genre (Enter the number):\n1. Fiction\n2. Mystery\n3. Science Fiction\n4. Fantasy\n5. Comedy\n6. Drama\n7. Romance\n8. Horror\n9. Thriller\n10. Adventure\n11. Biography`));
+
+    // Check if any of the fields are empty
+    if (!title || !author_name || !genre_id) {
+        alert('Title, author name, and genre ID are required');
+        return;
+    }
 
     // Send request to backend to add book
     fetch('/api/books', {
@@ -98,100 +132,99 @@ function addBook() {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ title, author, genre })
+        body: JSON.stringify({ title, author_name, genre_id })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add book');
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert('Book added successfully');
-            // Refresh books list
-            fetchBooks();
-        })
-        .catch(error => {
-            console.error('Error adding book:', error.message);
-            alert('Failed to add book. Please try again later.');
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add book');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Book added successfully');
+        // Refresh books list
+        fetchBooks();
+    })
+    .catch(error => {
+        console.error('Error adding book:', error.message);
+        alert('Failed to add book. Please try again later.');
+    });
 }
 
+
+// Client-side code to update a book
 function updateBook() {
-    // Get book ID to update
-    const id = prompt('Enter book ID to update:');
-    if (!id) return;
-
-    // Get updated input values
+    const book_id = prompt('Enter book ID to update:');
     const title = prompt('Enter updated title:');
-    const author = prompt('Enter updated author:');
-    const genre = prompt('Enter updated genre:');
+    const author_name = prompt('Enter updated author:');
+    const genre_id = parseInt(prompt(`Choose updated genre (Enter the number):\n1. Fiction\n2. Mystery\n3. Science Fiction\n4. Fantasy\n5. Comedy\n6. Drama\n7. Romance\n8. Horror\n9. Thriller\n10. Adventure\n11. Biography`));
 
-    // Send request to backend to update book
-    fetch(`/api/books/${id}`, {
+    // Validate inputs
+    if (!book_id || !title || !author_name || isNaN(genre_id)) {
+        alert('Invalid input. Please provide all required information.');
+        return;
+    }
+
+    // Send PATCH request to update the book
+    fetch(`/api/books/${book_id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ title, author, genre })
+        body: JSON.stringify({ title, author_name, genre_id })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update book');
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert('Book updated successfully');
-            // Refresh books list
-            fetchBooks();
-        })
-        .catch(error => {
-            console.error('Error updating book:', error.message);
-            alert('Failed to update book. Please try again later.');
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update book');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Book updated successfully');
+        // Refresh books list or perform any other necessary actions
+    })
+    .catch(error => {
+        console.error('Error updating book:', error.message);
+        alert('Failed to update book. Please try again later.');
+    });
 }
 
+// Function to delete a book
 
 function deleteBook() {
-    // Get book ID to delete
-    const id = prompt('Enter book ID to delete:');
-    if (!id) return;
-
+    const bookId = prompt('Enter the ID of the book:');
+    
+    // Validate input
+    if (!bookId) {
+        alert('Please provide the ID of the book.');
+        return;
+    }
+    
+    if (!confirm(`Are you sure you want to delete the book with ID ${bookId}?`)) {
+        return; // Cancel deletion if user chooses not to proceed
+    }
+    
     // Send request to backend to delete book
-    fetch(`/api/books/${id}`, {
+    fetch(`/api/books/${bookId}`, {
         method: 'DELETE',
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to delete book');
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert('Book deleted successfully');
-            // Refresh books list
-            fetchBooks();
-        })
-        .catch(error => {
-            console.error('Error deleting book:', error.message);
-            alert('Failed to delete book. Please try again later.');
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to delete book');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Book deleted successfully');
+        // Refresh books list or perform any other necessary actions
+    })
+    .catch(error => {
+        console.error('Error deleting book:', error.message);
+        alert('Failed to delete book. Please try again later.');
+    });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-  

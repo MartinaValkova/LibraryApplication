@@ -4,10 +4,16 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { Pool } = require('pg');
 const app = express();
+
+const { errorHandler } = require('./middleware');
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
+
+// Error handling middleware
+
+app.use(errorHandler);
 
 // Database configuration
 const pool = new Pool({
@@ -34,6 +40,8 @@ function startServer() {
   const { login, } = require('./controllers');
   const { authenticate } = require('./middleware');
 
+
+
   // Routes
   const routes = require('./routes');
   app.use('/api', routes);
@@ -42,7 +50,6 @@ function startServer() {
   app.post('/api/login', login);
 
    
-
   // Serve static files from the 'frontend' directory
   app.use(express.static(path.join(__dirname, '../frontend')));
 
