@@ -5,6 +5,8 @@ const path = require('path');
 const { Pool } = require('pg');
 const app = express();
 
+
+
 const { errorHandler } = require('./middleware');
 const PORT = process.env.PORT || 3000;
 
@@ -39,8 +41,9 @@ function startServer() {
   // Import controllers and middleware
   const { login, } = require('./controllers');
   const { authenticate } = require('./middleware');
+  
 
-
+ 
 
   // Routes
   const routes = require('./routes');

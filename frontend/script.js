@@ -1,7 +1,38 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch and display books when the page loads
     fetchBooks();
 });
+
+
+function searchBooks() {
+    const query = document.getElementById('searchQuery').value;
+
+    // Send request to backend to search for books
+    fetch(`/api/books/search?query=${query}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to search books');
+            }
+            return response.json();
+        })
+        .then(books => {
+            // Display search results
+            const booksList = document.getElementById('booksList');
+            booksList.innerHTML = ''; // Clear previous content
+            books.forEach(book => {
+                const bookElement = document.createElement('div');
+                bookElement.textContent = `ID: ${book.book_id}, Title: ${book.title}, Author: ${book.author}, Genre: ${book.genre}`;
+                booksList.appendChild(bookElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error searching books:', error.message);
+            alert('Failed to search books. Please try again later.');
+        });
+}
+
+
 
 function fetchBooks() {
     // Fetch books from backend
@@ -27,8 +58,6 @@ function fetchBooks() {
             alert('Failed to fetch books. Please try again later.');
         });
 }
-
-
 
 
 function login() {
@@ -87,6 +116,7 @@ function checkLoginStatus() {
         document.getElementById('loginForm').style.display = 'block';
     }
 }
+
 
 function logout() {
     // Clear token from local storage

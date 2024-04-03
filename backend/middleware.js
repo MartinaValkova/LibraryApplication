@@ -1,3 +1,4 @@
+
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 const expiresIn = '1h'; // Token expires in 1 hour
@@ -31,8 +32,4 @@ function errorHandler(err, req, res, next) {
 }
 
 module.exports = { authenticate, errorHandler };
-
-
-
-
 

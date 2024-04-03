@@ -2,6 +2,8 @@ const pool = require('./database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
+
+
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 
 
@@ -24,6 +26,32 @@ async function login(req, res) {
     } catch (error) {
         console.error('Error authenticating user:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+}
+
+
+async function searchBooks(req, res) {
+    const { query } = req.query;
+    try {
+        const searchQuery = `
+            SELECT 
+                b.book_id AS book_id,
+                b.title AS title, 
+                b.author_name AS author, 
+                g.genre_name AS genre 
+            FROM 
+                public."Books_Table" b
+            JOIN 
+                public."Genres_Table" g ON b.genre_id = g.genre_id
+            WHERE
+                LOWER(b.title) LIKE LOWER('%${query}%') OR
+                LOWER(b.author_name) LIKE LOWER('%${query}%')
+        `;
+        const { rows } = await pool.query(searchQuery);
+        res.json(rows);
+    } catch (error) {
+        console.error('Error searching books:', error);
+        res.status(500).json({ error: 'An error occurred while searching books.' });
     }
 }
 
@@ -134,6 +162,6 @@ function logout(req, res) {
     res.status(200).json({ success: true, message: 'Logout successful' });
 }
 
-module.exports = { login, logout, getAllBooks, addBook, updateBook, deleteBook };
+module.exports = { login, logout, searchBooks, getAllBooks, addBook, updateBook, deleteBook };
 
   

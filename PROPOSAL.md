@@ -16,7 +16,7 @@ Preliminary Project Plan
 Week 1: Set up development environment, including installing necessary dependencies and configuring PostgreSQL database.
 Week 2: Develop backend logic using Express.js, implement JWT for authentication, and create REST API endpoints for CRUD operations on books.
 2. Frontend Development (2 weeks)
-Week 3: Design and implement frontend interface using HTML5, CSS3, and JavaScript. Utilize Alpine.js for interactivity and dynamic content.
+Week 3: Design and implement frontend interface using HTML5, CSS3, and JavaScript. Utilize Vanilla JavaScript instead of Alpine.js for interactivity and dynamic content. (In the README.md is explained why i have chosen to use Vanilla over Alpine )
 Week 4: Integrate frontend with backend API using Fetch API for communication.
 3. Testing, Documentation, and Deployment (2 weeks)
 Week 5: Conduct unit tests for backend endpoints, perform integration testing for frontend and backend, and refine application based on feedback.

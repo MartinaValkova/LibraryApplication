@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { authenticate } = require('./middleware'); // Import the authenticate function
-const { login,logout, getAllBooks, addBook, updateBook, deleteBook} = require('./controllers');
+const { login,logout,searchBooks, getAllBooks, addBook, updateBook, deleteBook} = require('./controllers');
+
 
 // Login endpoint
 router.post('/login',login);
 
 router.post('/logout', logout);
+
+// Search books endpoint
+router.get('/books/search', searchBooks);
+
 
 // Get all books endpoint
 router.get('/books', getAllBooks);
