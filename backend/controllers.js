@@ -5,14 +5,15 @@ require('dotenv').config();
 
 
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
-
-
 async function login(req, res) {
     const { username, password } = req.body;
 
     try {
+        // Query the database to find the user with the provided credentials
         const result = await pool.query('SELECT * FROM public."Users_Table" WHERE username = $1 AND password = $2', [username, password]);
+
         if (result.rows.length === 1) {
+            // User found, generate JWT token
             const user = result.rows[0];
             const tokenPayload = {
                 username: user.username,
@@ -21,13 +22,16 @@ async function login(req, res) {
             const token = jwt.sign(tokenPayload, process.env.SECRET_KEY);
             res.json({ success: true, token }); // Send success response with token
         } else {
+            // User not found or invalid credentials
             res.status(401).json({ success: false, message: 'Invalid username or password' });
         }
     } catch (error) {
+        // Error occurred during login process
         console.error('Error authenticating user:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 }
+
 
 
 async function searchBooks(req, res) {

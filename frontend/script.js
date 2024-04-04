@@ -135,7 +135,7 @@ async function getGenreId(genreName) {
             throw new Error('Failed to fetch genre ID');
         }
         const data = await response.json();
-        return data.id; // Assuming the response contains the genre ID
+        return data.id; 
     } catch (error) {
         console.error('Error fetching genre ID:', error.message);
         throw error;

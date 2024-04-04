@@ -40,7 +40,7 @@ pool.connect((err) => {
 function startServer() {
   // Import controllers and middleware
   const { login, } = require('./controllers');
-  const { authenticate } = require('./middleware');
+  const { authenticate, authorize } = require('./middleware');
   
 
  
@@ -66,6 +66,16 @@ function startServer() {
     console.log(`Server is running on port ${PORT}`);
   });
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
