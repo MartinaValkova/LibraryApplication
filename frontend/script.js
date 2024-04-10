@@ -99,6 +99,9 @@ function login() {
         });
 }
 
+
+
+
 function checkLoginStatus() {
     // Check if user is logged in
     const token = localStorage.getItem('token');

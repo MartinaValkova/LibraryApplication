@@ -3,6 +3,9 @@ const router = express.Router();
 const { login, logout, searchBooks, getAllBooks, addBook, updateBook, deleteBook } = require('./controllers');
 const { authenticate, authorize, errorHandler } = require('./middleware');
 
+// Add the errorHandler middleware
+router.use(errorHandler);
+
 // Login endpoint
 router.post('/login', login);
 

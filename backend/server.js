@@ -6,7 +6,6 @@ const { Pool } = require('pg');
 const app = express();
 
 
-
 const { errorHandler } = require('./middleware');
 const PORT = process.env.PORT || 3000;
 
@@ -42,8 +41,6 @@ function startServer() {
   const { login, } = require('./controllers');
   const { authenticate, authorize } = require('./middleware');
   
-
- 
 
   // Routes
   const routes = require('./routes');

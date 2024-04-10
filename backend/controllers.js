@@ -1,10 +1,10 @@
 const pool = require('./database');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');// Import bcrypt
 require('dotenv').config();
 
-
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
+
 async function login(req, res) {
     const { username, password } = req.body;
 
@@ -31,6 +31,7 @@ async function login(req, res) {
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 }
+
 
 
 
@@ -112,7 +113,7 @@ async function addBook(req, res) {
 // Update Existing Book
 
 async function updateBook(req, res) {
-    const book_id = req.params.id; // Update this line to correctly extract the book_id parameter
+    const book_id = req.params.id; 
     const { title, author_name, genre_id } = req.body;
     try {
         // Check if any of the fields are empty
@@ -161,7 +162,6 @@ async function deleteBook(req, res) {
 
 function logout(req, res) {
     // Perform any necessary server-side logout actions
-    // For example, clearing session data, invalidating tokens, etc.
     // Then, send a response to the client indicating successful logout
     res.status(200).json({ success: true, message: 'Logout successful' });
 }
