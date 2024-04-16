@@ -155,7 +155,8 @@ Challenges and Solutions:
 
 # Why Vanilla JavaScript Over Alpine.js
 
-In the initial stages of the project, I thoroughly studied Alpine.js as a potential framework for enhancing interactivity in the application. While Alpine.js offers convenient ways to add interactivity, especially for smaller projects, I found that for this particular application, the complexity of authentication and database management required a more tailored approach.
+In the initial stages of the project, I thoroughly studied Alpine.js as a potential framework for enhancing interactivity in the application.  While Alpine.js offers simplicity and ease of use for adding interactivity to web applications, opting for vanilla JavaScript provided greater flexibility and control over the project's functionality and behavior. Additionally, by leveraging vanilla JavaScript, the project avoided dependencies on third-party libraries, reducing the risk of compatibility issues and ensuring better long-term maintainability.
+Alpine.js offers convenient ways to add interactivity, especially for smaller projects, I found that for this particular application, the authentication and database management required a more tailored approach.
 
 After studying both Alpine.js and vanilla JavaScript extensively, I concluded that vanilla JavaScript provided:
 
