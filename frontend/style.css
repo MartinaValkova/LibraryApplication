@@ -20,7 +20,7 @@ h1 {
 }
 
 .value {
-  color: #666; /* Set the color of values to a slightly darker gray */
+  color: #999; /* Set the color of values to a lighter gray */
 }
 
 /* Media query for smaller screens */

@@ -21,6 +21,7 @@ Server-Side:
 - Routes: Define the endpoints that handle client requests and map them to corresponding controller functions.
 - Controllers: Contains the logic for processing requests, interacting with the database, and sending responses back to the client.
 
+
 # Development Process-Steps Involved:
 
 Requirement Analysis:
@@ -34,6 +35,17 @@ Design:
 - Designed the application architecture, outlining the frontend and backend components.
 - Created the database schema to store book information and user data.
 - Designed the user interface for both readers and librarians, ensuring intuitive navigation and functionality.
+
+REST API Endpoint Design:
+
+POST /api/login: Endpoint for user authentication.
+POST /api/logout: Endpoint for user logout.
+GET /api/books/search: Search books based on title, author, or genre.
+GET /api/books: Retrieve a list of all books from the catalog.
+POST /api/books: Add a new book to the catalog.
+PATCH /api/books/:id: Update information about an existing book.
+DELETE /api/books/:id: Remove a book from the catalog.
+
 
 Implementation:
 
