@@ -31,6 +31,55 @@ h1 {
   }
 }
 
+/* Styles for search form */
+#searchForm {
+  margin-bottom: 20px;
+}
+
+#searchForm h2 {
+  margin-top: 0;
+  color: #000; /* Set search label color to black */
+}
+
+#searchForm input[type="text"],
+#searchForm button {
+  margin: 0; /* Remove margin */
+  display: inline-block; /* Display input fields and button inline */
+}
+
+/* Styles for librarian login form */
+#loginForm h2 {
+  color: #000; /* Set librarian login title color to black */
+}
+
+/* Styles for librarian actions */
+#librarianActions h2 {
+  color: #007bff; /* Set librarian actions title color to blue */
+}
+
+/* Stylish buttons for librarian actions */
+#librarianActions button {
+  background-color: #007bff; /* Set button background color to blue */
+  color: #fff; /* Set button text color to white */
+  border: none; /* Remove button border */
+  padding: 10px 20px; /* Add padding to button */
+  margin-right: 10px; /* Add margin to separate buttons */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  border-radius: 5px; /* Add border radius to button */
+}
+
+#librarianActions button:hover {
+  background-color: #0056b3; /* Darken button background color on hover */
+}
+
+
+
+
+
+
+
+
+
 
 
 
