@@ -4,35 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library Catalog</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"> <!-- Link to external stylesheet -->
 </head>
 <body>
 <!-- Search Form by Book, Author or Genre -->
   <div id="searchForm">
     <h2>Search Books</h2>
+    <!-- Input fields for search query, author name, and genre -->
     <input type="text" id="searchQuery" placeholder="Enter search query">
     <input type="text" id="authorQuery" placeholder="Enter author name"> <!-- Add input field for author -->
     <input type="text" id="genreQuery" placeholder="Enter genre"> <!-- Add input field for genre -->
-    <button onclick="searchBooks()">Search</button>
+    <button onclick="searchBooks()">Search</button> <!-- Button to trigger search -->
 </div>
 
-  <h1>Library Catalog</h1> 
-  
- 
-  
+  <h1>Library Catalog</h1> <!-- Main heading -->
+
+  <!-- Container for displaying books -->
   <div id="booksList">
     <!-- Books will be displayed here -->
   </div>
 
+  <!-- Librarian login form -->
   <div id="loginForm">
     <h2>Librarian Login</h2>
+    <!-- Input fields for username and password -->
     <input type="text" id="username" placeholder="Username" autocomplete="username"><br>
     <input type="password" id="password" placeholder="Password" autocomplete="current-password"><br>
-    <button onclick="login()">Login</button>
+    <button onclick="login()">Login</button> <!-- Button to trigger login -->
   </div>
 
+  <!-- Container for librarian actions -->
   <div id="librarianActions" style="display: none;">
     <h2>Librarian Actions</h2>
+    <!-- Buttons for adding, updating, and deleting books -->
     <button onclick="addBook()">Add Book</button>
     <button onclick="updateBook()">Update Book</button>
     <button onclick="deleteBook()">Delete Book</button>
@@ -40,9 +44,10 @@
     <button onclick="logout()">Logout</button>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js"></script> <!-- Link to external JavaScript file -->
 </body>
 </html>
+
 
 
 

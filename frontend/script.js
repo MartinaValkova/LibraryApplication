@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch and display books when the page loads
     fetchBooks();
@@ -6,11 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function searchBooks() {
+    // Retrieve search query, author, and genre from input fields
     const query = document.getElementById('searchQuery').value;
     const author = document.getElementById('authorQuery').value;
     const genre = document.getElementById('genreQuery').value;
 
-    // Send request to backend to search for books with query, author, and genre parameters
+    // Send request to backend to search for books with specified parameters
     fetch(`/api/books/search?query=${query}&author=${author}&genre=${genre}`)
         .then(response => {
             if (!response.ok) {
@@ -62,6 +62,7 @@ function fetchBooks() {
 
 
 function login() {
+    // Retrieve username and password from input fields
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
@@ -88,7 +89,7 @@ function login() {
                 // Fetch and display books again
                 fetchBooks();
                 // Update librarian actions visibility
-                checkLoginStatus(); // Call checkLoginStatus here
+                checkLoginStatus();
             } else {
                 // Login failed
                 alert('Login failed. Please try again.');
@@ -149,6 +150,7 @@ async function getGenreId(genreName) {
 
 // Function to add a new book
 function addBook() {
+    // Prompt user to enter book details
     const title = prompt('Enter title:');
     const author_name = prompt('Enter author name:');
     const genre_id = parseInt(prompt(`Choose genre (Enter the number):\n1. Fiction\n2. Mystery\n3. Science Fiction\n4. Fantasy\n5. Comedy\n6. Drama\n7. Romance\n8. Horror\n9. Thriller\n10. Adventure\n11. Biography`));
@@ -188,6 +190,7 @@ function addBook() {
 
 // Client-side code to update a book
 function updateBook() {
+    // Prompt user to enter updated book details
     const book_id = prompt('Enter book ID to update:');
     const title = prompt('Enter updated title:');
     const author_name = prompt('Enter updated author:');
@@ -227,6 +230,7 @@ function updateBook() {
 // Function to delete a book
 
 function deleteBook() {
+    // Prompt user to enter the ID of the book to be deleted
     const bookId = prompt('Enter the ID of the book:');
     
     // Validate input
@@ -235,6 +239,7 @@ function deleteBook() {
         return;
     }
     
+    // Confirm deletion with user
     if (!confirm(`Are you sure you want to delete the book with ID ${bookId}?`)) {
         return; // Cancel deletion if user chooses not to proceed
     }
