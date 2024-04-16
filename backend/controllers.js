@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 
+// Function to authenticate user credentials and generate JWT token
 async function login(req, res) {
     const { username, password } = req.body;
 
@@ -33,12 +34,12 @@ async function login(req, res) {
 }
 
 
-
-
+// Function to search books by title, author, and genre
 async function searchBooks(req, res) {
-    const { query } = req.query;
+    const { query, author, genre } = req.query;
+
     try {
-        const searchQuery = `
+        let searchQuery = `
             SELECT 
                 b.book_id AS book_id,
                 b.title AS title, 
@@ -49,9 +50,17 @@ async function searchBooks(req, res) {
             JOIN 
                 public."Genres_Table" g ON b.genre_id = g.genre_id
             WHERE
-                LOWER(b.title) LIKE LOWER('%${query}%') OR
-                LOWER(b.author_name) LIKE LOWER('%${query}%')
-        `;
+                LOWER(b.title) LIKE LOWER('%${query}%')`;
+
+        // Conditions for author name and genre
+        if (author) {
+            searchQuery += ` AND LOWER(b.author_name) LIKE LOWER('%${author}%')`;
+        }
+
+        if (genre) {
+            searchQuery += ` AND LOWER(g.genre_name) LIKE LOWER('%${genre}%')`;
+        }
+
         const { rows } = await pool.query(searchQuery);
         res.json(rows);
     } catch (error) {
@@ -61,7 +70,7 @@ async function searchBooks(req, res) {
 }
 
 
-
+// Function to fetch all books with their details
 async function getAllBooks(req, res) {
     try {
         const query = `
@@ -84,6 +93,7 @@ async function getAllBooks(req, res) {
 }
 
 
+// Function to add a new book to the database
 async function addBook(req, res) {
     const { title, author_name, genre_id } = req.body;
     try {
@@ -110,8 +120,7 @@ async function addBook(req, res) {
 }
 
 
-// Update Existing Book
-
+// Function to update an existing book in the database
 async function updateBook(req, res) {
     const book_id = req.params.id; 
     const { title, author_name, genre_id } = req.body;
@@ -139,7 +148,7 @@ async function updateBook(req, res) {
 }
 
 
-// Delete Book
+// Function to delete a book from the database
 async function deleteBook(req, res) {
     const bookId = req.params.id;
     try {
@@ -160,12 +169,12 @@ async function deleteBook(req, res) {
 }
 
 
+// Function to handle user logout
 function logout(req, res) {
     // Perform any necessary server-side logout actions
     // Then, send a response to the client indicating successful logout
     res.status(200).json({ success: true, message: 'Logout successful' });
 }
 
+// Export all functions for use in other modules
 module.exports = { login, logout, searchBooks, getAllBooks, addBook, updateBook, deleteBook };
-
-  

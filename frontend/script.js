@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function searchBooks() {
     const query = document.getElementById('searchQuery').value;
+    const author = document.getElementById('authorQuery').value;
+    const genre = document.getElementById('genreQuery').value;
 
-    // Send request to backend to search for books
-    fetch(`/api/books/search?query=${query}`)
+    // Send request to backend to search for books with query, author, and genre parameters
+    fetch(`/api/books/search?query=${query}&author=${author}&genre=${genre}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to search books');
@@ -31,7 +33,6 @@ function searchBooks() {
             alert('Failed to search books. Please try again later.');
         });
 }
-
 
 
 function fetchBooks() {
