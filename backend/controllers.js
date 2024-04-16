@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
 
+
 // Function to authenticate user credentials and generate JWT token
 async function login(req, res) {
     const { username, password } = req.body;
@@ -32,6 +33,7 @@ async function login(req, res) {
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 }
+
 
 
 // Function to search books by title, author, and genre

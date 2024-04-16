@@ -5,7 +5,7 @@ body {
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
 }
 
 .book {
@@ -14,9 +14,10 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* Adjusted the color for .label */
 .label {
-  font-weight: bold;
-  color: #333; /* Darker color */
+  font-weight: normal; /* Ensure label is not bold */
+  color: #777; /* Adjusted color to be lighter */
 }
 
 .value {
@@ -30,6 +31,9 @@ h1 {
     margin-bottom: 8px;
   }
 }
+
+
+
 
 
 
