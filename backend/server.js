@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config();// Load environment variables from .env file
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -16,14 +16,23 @@ app.use(bodyParser.json());
 
 app.use(errorHandler);
 
+
 // Database configuration
 const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false // This is required for connecting to DigitalOcean Managed Database over SSL
+  }
+});
+
+// Database configuration
+/*const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT || 5432,
-});
+  port: process.env.DB_PORT ,
+});*/
 
 // Handle database connection errors
 pool.connect((err) => {
