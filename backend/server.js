@@ -7,7 +7,11 @@ const app = express();
 
 
 const { errorHandler } = require('./middleware');
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
+
+const PORT = process.env.PORT || 80; // Default to port 80 for HTTP traffic
+const HTTPS_PORT = 443; // Port 443 for HTTPS traffic
+
 
 // Middleware
 app.use(bodyParser.json());
