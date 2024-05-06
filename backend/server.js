@@ -1,11 +1,10 @@
 require('dotenv').config();// Load environment variables from .env file
 const express = require('express');
+const { Pool } = require('pg');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { Pool } = require('pg');
 const app = express();
-
-
+const pool = require('./database');
 
 
 const { errorHandler } = require('./middleware');
@@ -19,25 +18,6 @@ app.use(bodyParser.json());
 
 app.use(errorHandler);
 
-
-
-
-// Database configuration using a connection string
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
-
-
-
-// Database configuration
- /*const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT ,
-});*/
 
 // Handle database connection errors
 pool.connect((err) => {
