@@ -1,6 +1,6 @@
 # LibraryApplication
 
-This project aims to develop a web application serving as a book library catalog. The application will consist of a REST API backend and a frontend interface. It will cater to two types of users: Readers (no authentication required) and Librarians (authentication required). Readers can browse books in the catalog, while Librarians can manage books by adding new books, updating existing ones, and deleting books.
+This project aims to develop a web application serving as a book library catalog. The application consist of a REST API backend and a frontend interface. It caters to two types of users: Readers (no authentication required) and Librarians (authentication required). Readers can browse books in the catalog, while Librarians can manage books by adding new books, updating existing ones, and deleting books.
 
 # Application Architecture
 
@@ -122,6 +122,20 @@ The authenticate middleware is applied for JWT verification.
 The authorize(['librarian']) middleware is used to restrict access to librarians only.
 These middleware functions help enforce authentication and authorization rules for different endpoints in the application. By applying them appropriately to the routes, the application ensures that only authenticated users with the necessary permissions (librarians) can perform certain actions, such as adding, updating, or deleting books.
 
+# Deploying the Node.js App to Digital Ocean
+
+There are various methods to deploy applications, one of which is using Digital Ocean's App Platform, which proved to be efficient for this particular project due to its simplicity. The process involved a few key steps:
+
+- Database Setup: Initially, a PostgreSQL database cluster was created on Digital Ocean. The local PostgreSQL database used during the development phase was migrated to this cluster.
+
+- App Creation: Using the GitHub repository containing the app code, an app was created within the Digital Ocean platform. This facilitated easy deployment and management of the application.
+
+- Connection to Database: To ensure the app could interact with the database, the necessary database variables (such as DATABASE_URL atc) were configured within the Digital Ocean app settings. This ensured seamless communication between the app and the database.
+
+By following these steps, the app was successfully deployed to Digital Ocean's infrastructure, allowing it to be accessed and utilized via the provided link.
+
+https://library-catalog-x4bq3.ondigitalocean.app/
+
 
 
 # Critical Evaluation
@@ -135,6 +149,8 @@ Successes:
 - Search Functionality: The search functionality allows users to efficiently find books based on title, author, or genre.
 
 - UI/UX: The user interface is intuitive and user-friendly, enhancing the overall user experience.
+
+- Deployment
 
 Challenges and Solutions:
 
@@ -172,7 +188,7 @@ After studying both Alpine.js and vanilla JavaScript extensively, I concluded th
 Through a careful evaluation of available options, including Alpine.js and vanilla JavaScript, I made an informed decision to proceed with vanilla JavaScript for this project. This decision was based on a thorough understanding of the project requirements, the complexities involved in authentication and database management, and the desire for greater control and flexibility in implementation. While challenges were encountered along the way, the project's successes demonstrate the effectiveness of the chosen approach and provide valuable insights for future projects.
 
 
-# How to run the app 
+# How to run the app from local machine
 
 To run the application, follow these steps:
 
@@ -185,15 +201,19 @@ This command will install all the dependencies listed in the package.json file.
 
 Set Up Environment Variables: Ensure that you have set up any required environment variables. These might include database connection strings, secret keys for JWT signing, or other configuration options. You can set environment variables either in a .env file or directly in your hosting environment.
 
-Database Setup: The application uses a database, ensure that the database is set up correctly. This might involve creating the necessary tables, indexes, or seed data. 
+Database Setup: The application uses a database, ensure that the database is set up correctly. This might involve creating the necessary tables, indexes, or seed data. According this code the Database should have 3 tables, Books_Table, Genres_Table and Users_Table.
 
 Start the Server: Run the command to start your server. This command is specified in the scripts section of the package.json file. 
 
-- node server.js
+- node backend/server.js
 
 
 
 # Application URL
+
+The app was deployed to Digital Ocean, please view the app on the link below:
+
+https://library-catalog-x4bq3.ondigitalocean.app/
 
 
 # Librarian Login
