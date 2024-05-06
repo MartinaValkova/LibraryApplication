@@ -25,10 +25,7 @@ app.use(errorHandler);
 // Database configuration using a connection string
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: process.env.NODE_SSL_REJECT_UNAUTHORIZED === '0' ? false : true
-  }
+  connectionString: process.env.DATABASE_URL
 });
 
 
