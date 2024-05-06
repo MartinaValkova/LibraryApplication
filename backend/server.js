@@ -6,6 +6,8 @@ const { Pool } = require('pg');
 const app = express();
 
 
+
+
 const { errorHandler } = require('./middleware');
 const PORT = process.env.PORT || 3000;
 
@@ -18,16 +20,21 @@ app.use(bodyParser.json());
 app.use(errorHandler);
 
 
-// Database configuration
+
+
+// Database configuration using a connection string
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false // This is required for connecting to DigitalOcean Managed Database over SSL
+    rejectUnauthorized: process.env.NODE_SSL_REJECT_UNAUTHORIZED === '0' ? false : true
   }
 });
 
+
+
 // Database configuration
-/*const pool = new Pool({
+ /*const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
