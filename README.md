@@ -132,6 +132,8 @@ There are various methods to deploy applications, one of which is using Digital 
 
 - Connection to Database: To ensure the app could interact with the database, the necessary database variables (such as DATABASE_URL atc) were configured within the Digital Ocean app settings. This ensured seamless communication between the app and the database.
 
+- Important Note: Don't forget to refresh the site after updating or deleting a book to ensure the changes are reflected in real-time.
+
 By following these steps, the app was successfully deployed to Digital Ocean's infrastructure, allowing it to be accessed and utilized via the provided link.
 
 https://library-catalog-x4bq3.ondigitalocean.app/
