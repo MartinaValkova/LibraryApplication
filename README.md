@@ -1,6 +1,7 @@
 # LibraryApplication
 
 This project aims to develop a web application serving as a book library catalog. The application consist of a REST API backend and a frontend interface. It caters to two types of users: Readers (no authentication required) and Librarians (authentication required). Readers can browse books in the catalog, while Librarians can manage books by adding new books, updating existing ones, and deleting books.
+Including IDs alongside book details allows for efficient organization, referencing, and identification in large datasets, benefiting not just the librarian but also the reader.
 
 # Application Architecture
 
@@ -220,7 +221,7 @@ https://library-catalog-x4bq3.ondigitalocean.app/
 
 # Librarian Login
 
-admin/secret
+ admin/secret
 
 
 # GitHub URL 
