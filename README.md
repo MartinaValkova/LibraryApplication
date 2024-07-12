@@ -123,7 +123,7 @@ The authenticate middleware is applied for JWT verification.
 The authorize(['librarian']) middleware is used to restrict access to librarians only.
 These middleware functions help enforce authentication and authorization rules for different endpoints in the application. By applying them appropriately to the routes, the application ensures that only authenticated users with the necessary permissions (librarians) can perform certain actions, such as adding, updating, or deleting books.
 
-# Deploying the Node.js App to Digital Ocean
+# Deploying the Node.js App to Digital Ocean (Please note that the link will be accessible only till the 12 of July 2024)
 
 There are various methods to deploy applications, one of which is using Digital Ocean's App Platform, which proved to be efficient for this particular project due to its simplicity. The process involved a few key steps:
 
@@ -136,6 +136,8 @@ There are various methods to deploy applications, one of which is using Digital 
 - Important Note: Don't forget to refresh the site after updating or deleting a book to ensure the changes are reflected in real-time.
 
 By following these steps, the app was successfully deployed to Digital Ocean's infrastructure, allowing it to be accessed and utilized via the provided link.
+
+(Please note that the link will be accessible only till the 12 of July 2024)
 
 https://library-catalog-x4bq3.ondigitalocean.app/
 
@@ -213,6 +215,8 @@ Start the Server: Run the command to start your server. This command is specifie
 
 
 # Application URL
+
+(Please note that the link will be accessible only till the 12 of July 2024)
 
 The app was deployed to Digital Ocean, please view the app on the link below:
 
